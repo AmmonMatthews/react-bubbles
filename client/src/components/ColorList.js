@@ -9,8 +9,8 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
- 
+const ColorList = ({ colors, updateColors, history }) => {
+ console.log("colorlist props", history)
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -38,13 +38,15 @@ const ColorList = ({ colors, updateColors }) => {
 
   const deleteColor = color => {
     axiosWithAuth()
-      .delete(`/api/colors/${id}`)
+      .delete(`/api/colors/${color.id}`)
       .then(res => {
         console.log(res)
+        
       })
       .catch(err => {
         console.log(err)
       })
+      history.push("/")
     // make a delete request to delete this color
   };
 
