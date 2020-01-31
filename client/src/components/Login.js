@@ -33,7 +33,7 @@ const Login = (props) => {
       .catch(err => {
         console.log("Username or password was wrong", err.response)
       })
-      // props.history.push("/")
+      props.history.push("/bubbles")
   }
 
   return (
