@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { useParams } from "react-router-dom";
 
 
 const initialColor = {
@@ -13,6 +12,7 @@ const ColorList = ({ colors, updateColors, history }) => {
  console.log("colorlist props", history)
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [newColor, setNewColor] = useState(initialColor);
 
   const editColor = color => {
     setEditing(true);
@@ -49,6 +49,8 @@ const ColorList = ({ colors, updateColors, history }) => {
       history.push("/")
     // make a delete request to delete this color
   };
+
+  console.log(newColor);
 
   return (
     <div className="colors-wrap">
@@ -105,6 +107,35 @@ const ColorList = ({ colors, updateColors, history }) => {
       )}
       <div className="spacer" />
       {/* stretch - build another form here to add a color */}
+      
+      <form>
+        <label htmlFor="color">New Color</label>
+        <input
+        id="color"
+        name="color"
+        type="text"
+        placeholder="New Color"
+        value={newColor.color}
+        onChange={e => {
+          setNewColor(...newColor, {color: e.target.value})
+        }}
+        />
+        <label htmlFor="hexcode">Hex code</label>
+        <input
+        id="hexcode"
+        name="hexcode"
+        type="text"
+        placeholder="Hex Code"
+        value={newColor.code.hex}
+        onChange={e => {
+          setNewColor({...newColor, code: { hex: e.target.value}})
+        }}
+        />
+
+      
+        <button>Add New Color</button>
+      </form>
+
     </div>
   );
 };
